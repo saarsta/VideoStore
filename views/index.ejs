@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/stylesheets/style.css'/>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="/javascripts/main.js"></script>
+    </head>
+    <body>
+        <div class="formContainer">
+            <form id="searchtForm">
+                <h1 class="title">Search for movies</h1>
+
+                <div>
+                    <div class="formRow">
+                        Title
+                        <input type="text" name="title" placeholder="title">
+                    </div>
+                    <div class="formRow">
+                        Description
+                        <input type="text" name="description" placeholder="description">
+                    </div>
+                    <div class="formRow">
+                        Choose category
+                        <select class="selectCategory" name="category">
+                            <option></option>
+                        </select>
+                    </div>
+
+                    <div class="formRow">
+                        Choose an actor
+                        <select class="selectActor" name="actor">
+                            <option></option>
+                        </select>
+                    </div>
+
+                    <div class="formRow">
+                        Choose language
+                        <select class="selectLanguage" name="language">
+                            <option></option>
+                        </select>
+                    </div>
+
+                    <div class="formRow alignToRight">
+                        <button type="submit">search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="noResaulContainer hidden">
+            <h1 class="title">No Results</h1>
+        </div>
+
+        <div class="resaulContainer hidden">
+            <h1 class="title">Results</h1>
+
+            <div class="pagination">
+                <a href="javascript: void(0)" class="btn_prev">Prev</a>
+                page:<span class="pages" id="currPage"></span>
+                <a href="javascript: void(0)" class="btn_next">Next</a>
+            </div>
+
+            <table>
+                <thead>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category Name</th>
+                <th>Release Year</th>
+                <th>Language Name</th>
+                <th>Length</th>
+                <th>Rating</th>
+                <th>Actor Names</th>
+                </thead>
+                <tbody class="resultTable">
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <a href="javascript: void(0)" class="btn_prev">Prev</a>
+                page:<span class="pages"></span>
+                <a href="javascript: void(0)" class="btn_next">Next</a>
+            </div>
+
+            <table class="logTable">
+                <thead>
+                    <th>Timestamp</th>
+                    <th>Search types</th>
+                    <th>Search values</th>
+                    <th>Result count</th>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
