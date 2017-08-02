@@ -59,20 +59,20 @@ router.get('/search', function (req, res, next) {
 
 var convertToSearchLog = function (filmQuery) {
     var types = ['title', 'description'];
-    var typeList = [ 'category', 'actor', 'language'];
+    var listTypes = [ 'category', 'actor', 'language'];
 
     var searchTypes = [];
     var searchValues = [];
     var typeName;
 
     types.forEach(function (type) {
-        if (filmQuery[type] !== "") {
+        if (filmQuery[type]) {
             searchTypes.push(type);
             searchValues.push(filmQuery[type]);
         }
     });
 
-    typeList.forEach(function (type) {
+    listTypes.forEach(function (type) {
         typeName = type + "Name";
         if (filmQuery[typeName]) {
             searchTypes.push(type);

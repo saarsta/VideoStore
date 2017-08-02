@@ -15,7 +15,7 @@ var SearchLog = {
 
         var timestamp = new Date();
 
-        return db.query("Insert into search_log (timestamp, search_types, search_values, result_count)values(?,?,?,?)",
+        return db.query("Insert into search_log (timestamp, search_types, search_values, result_count) values (?,?,?,?)",
         [
             timestamp,
             searchTypes,

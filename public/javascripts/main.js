@@ -24,18 +24,15 @@ $(function () {
 
     $("#searchtForm").submit(function (e) {
         var form = this;
-        var params = ['title', 'description', 'category', 'actor', 'language'];
-        var body = {};
+        var selectedActor = $('.selectActor option:selected').text();
+        var selectCategory = $('.selectCategory option:selected').text();
+        var selectLanguage = $('.selectLanguage option:selected').text();
 
         serializedData = $("#searchtForm").serialize();
 
-        serializedData += $('.selectActor option:selected').text() ?  '&actorName=' + $('.selectActor option:selected').text() : "";
-        serializedData += $('.selectCategory option:selected').text() ? '&categoryName=' +  $('.selectCategory option:selected').text() : "";
-        serializedData += $('.selectLanguage option:selected').text() ? '&languageName=' + $('.selectLanguage option:selected').text() : "";
-
-        params.forEach(function (param) {
-            body[param] = $('[name="' + param + '"]', form).val();
-        });
+        serializedData += selectedActor ?  '&actorName=' + selectedActor : "";
+        serializedData += selectCategory ? '&categoryName=' +  selectCategory : "";
+        serializedData += selectLanguage ? '&languageName=' + selectLanguage : "";
 
         $.ajax({
             type: "GET",
@@ -43,20 +40,18 @@ $(function () {
             data: serializedData, // serializes the form's elements.
             success: function (data) {
                 var maxRows = data.maxRowsInPage;
-                body.totalCount = data.allRows[0]['FOUND_ROWS()'];
-                totalPages = parseInt(body.totalCount / maxRows);
+                data.totalCount = data.allRows[0]['FOUND_ROWS()'];
+                totalPages = parseInt(data.totalCount / maxRows);
 
                 initResultsBlock(totalPages);
                 buildTable(data.rows);
                 buildLog(data.log[0]);
 
-                console.log(body.totalCount, "totalCount");
-
                 pages.each(function () {
                     $(this).text('1');
                 });
 
-                if (body.totalCount === 0) {
+                if (data.totalCount === 0) {
                     $('.noResaulContainer').removeClass('hidden');
                 } else {
                     $('.resaulContainer').removeClass('hidden');
@@ -99,7 +94,6 @@ $(function () {
         }
 
         $(".btn_prev").removeClass("inactiveLink");
-
     });
 
     function getLists(optionList){
@@ -111,7 +105,6 @@ $(function () {
                 success: function (data) {
                     var selectCategory = $('.select' + option.keyUpperCase);
                     $.each(data, function (key, value) {
-                        console.log(value);
                         selectCategory.append($("<option></option>")
                             .attr("value", value[option.key + "_id"])
                             .text(value.name));
@@ -151,6 +144,7 @@ $(function () {
 
     function initResultsBlock(numOfPages) {
         $(".resultTable").empty();
+        $(".btn_next").removeClass("inactiveLink");
         $('.resaulContainer').addClass('hidden');
         $('.noResaulContainer').addClass('hidden');
         $(".btn_prev").addClass("inactiveLink");
@@ -161,7 +155,6 @@ $(function () {
     }
 
     function buildLog(log) {
-        debugger
         $(".logTable").append(
             '<tr class="movie">' +
             "<td>" + log.timestamp + "</td>" +
