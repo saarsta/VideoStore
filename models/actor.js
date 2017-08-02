@@ -2,7 +2,7 @@ var db = require('../dbconnection');
 
 var Actor = {
     getAllActors: function (callback) {
-        return db.query("Select *, CONCAT(first_name,' ', last_name) as name from actor order by name", callback);
+        return db.query("Select actor_id, CONCAT(first_name,' ', last_name) as name from actor order by name", callback);
 
     },
     getActorById: function (id, callback) {

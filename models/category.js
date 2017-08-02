@@ -2,7 +2,7 @@ var db = require('../dbconnection');
 
 var Category = {
     getAllCategories: function (callback) {
-        return db.query("Select * from category", callback);
+        return db.query("select category_id, name from category", callback);
 
     },
     getCategoryById: function (id, callback) {
