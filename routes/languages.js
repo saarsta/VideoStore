@@ -7,7 +7,7 @@ router.get('/:id', function (req, res, next) {
     var language_id = req.params.id;
 
     if (language_id) {
-        Language.getActorById(language_id, function (err, rows) {
+        Language.getLanguageById(language_id, function (err, rows) {
             if (err) {
                 res.json(err);
             } else {
@@ -15,14 +15,14 @@ router.get('/:id', function (req, res, next) {
             }
         });
     } else {
-        next('route');
+        next('route')
     }
 });
 
 router.get('/', function (req, res, next) {
-    Language.getAllActors(function (err, rows) {
+    Language.getAllLanguages(function (err, rows) {
         if (err) {
-            res.json(err);
+            next(err);
         } else {
             res.json(rows);
         }
